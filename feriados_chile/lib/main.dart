@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const home(title: 'Feriados en Chile'),
+      home: const Home(title: 'Feriados en Chile'),
     );
   }
 }
