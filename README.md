@@ -2,11 +2,11 @@
 
 Se nos pidio utilizar una Api para poder marcar presencia de su nueva área de 
 desarrollo. Utilizamos la Api de Feriados legales de Chile (https://apis.digital.gob.cl/fl/#inicio), 
-además de utilizar Widgets, dependencias de Flutter, persistencia de datos, un botón para compartir información,
+además de utilizar Widgets, dependencias de Flutter, persistencia de datos, un botón para compartir información.
 
 ## Video:
 
-(Poner video aquí)
+https://youtu.be/OUyaQex8a24
 
 ## La API
 La API de Feriados Legales de Chile permite ver todos los feriados del año. Estos están almacenados con strings, booleanos y listas.
