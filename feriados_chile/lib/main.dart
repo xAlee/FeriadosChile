@@ -1,8 +1,9 @@
+import 'package:feriados_chile/splashCreen.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(SplashScreen());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Home(title: 'Feriados en Chile'),
+      home: const Home(title: 'Feriados Chile'),
     );
   }
 }

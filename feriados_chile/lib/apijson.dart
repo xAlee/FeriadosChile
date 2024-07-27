@@ -76,7 +76,10 @@ class _ApiJsonPageState extends State<ApiJsonPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: loading ? customLoading() : customListBuilder(),
+      body: Container(
+        color: Color(0xFF979797), // Color de fondo
+        child: loading ? customLoading() : customListBuilder(),
+      ),
     );
   }
 
@@ -101,15 +104,23 @@ class _ApiJsonPageState extends State<ApiJsonPage> {
                   return Card(
                     elevation: 5,
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    color: Color(0xFFC5C5C5), // Color de fondo de la tarjeta
                     child: ListTile(
                       contentPadding: const EdgeInsets.all(16.0),
                       title: Text(
                         feriado.getNombre,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black, // Color del texto
+                          fontSize: 22, // Tamaño del texto
+                        ),
                       ),
                       subtitle: Text(
                         '${feriado.getFecha}',
-                        style: const TextStyle(color: Colors.black54),
+                        style: const TextStyle(
+                          color: Colors.black54, // Color del texto
+                          fontSize: 18, // Tamaño del texto
+                        ),
                       ),
                       isThreeLine: true,
                     ),
@@ -123,8 +134,20 @@ class _ApiJsonPageState extends State<ApiJsonPage> {
   Widget customEmpty() {
     return Center(
       child: ListTile(
-        title: const Text('Lista Vacía'),
-        subtitle: const Text('La API no tiene contenido'),
+        title: const Text(
+          'Lista Vacía',
+          style: TextStyle(
+            color: Colors.black, // Color del texto
+            fontSize: 22, // Tamaño del texto
+          ),
+        ),
+        subtitle: const Text(
+          'La API no tiene contenido',
+          style: TextStyle(
+            color: Colors.black54, // Color del texto
+            fontSize: 18, // Tamaño del texto
+          ),
+        ),
       ),
     );
   }

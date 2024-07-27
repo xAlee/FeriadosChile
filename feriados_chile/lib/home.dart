@@ -81,15 +81,22 @@ class _HomeState extends State<Home> {
         formattedDate);
   }
 
-  String _getHolidayName(DateTime date) {
+  Map<String, String> _getHolidayInfo(DateTime date) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
     var holiday = feriados.firstWhere(
         (feriado) =>
             DateFormat('yyyy-MM-dd').format(DateTime.parse(feriado.getFecha)) ==
             formattedDate,
-        orElse: () => Feriado.fromJSON(
-            {'nombre': 'No Disponible', 'fecha': 'No Disponible'}));
-    return holiday.getNombre;
+        orElse: () => Feriado.fromJSON({
+              'nombre': 'No Disponible',
+              'fecha': 'No Disponible',
+              'tipo': 'No Disponible'
+            }));
+
+    return {
+      'nombre': holiday.getNombre,
+      'tipo': holiday.getTipo,
+    };
   }
 
   DateTime? _getNextHolidayDate() {
@@ -154,29 +161,33 @@ class _HomeState extends State<Home> {
     String formattedMonth = DateFormat('MMMM', 'es_ES').format(_currentDate);
     String formattedYear = DateFormat('yyyy').format(_currentDate);
     bool isHoliday = _isHoliday(_currentDate);
-    String holidayName = isHoliday ? _getHolidayName(_currentDate) : '';
+    Map<String, String> holidayInfo =
+        isHoliday ? _getHolidayInfo(_currentDate) : {};
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Color(0xFF001BE6), // Cambiar color aquí
         title: Center(
-          child: Text(widget.title),
+          child: Text(widget.title, style: TextStyle(color: Colors.white)),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.calendar_today),
+            icon: Icon(Icons.calendar_today, color: Colors.white),
             onPressed: _showDaysUntilNextHoliday,
           ),
         ],
+        iconTheme: IconThemeData(
+            color: Colors.white), // Cambiar color de los iconos aquí
       ),
       drawer: Drawer(
+        backgroundColor: Color(0xFFDE0000), // Cambiar color del Drawer aquí
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.deepPurple,
+                color: Color(0xFFDE0000), // Cambiar color del DrawerHeader aquí
               ),
               child: Text(
                 'Menú',
@@ -187,7 +198,13 @@ class _HomeState extends State<Home> {
               ),
             ),
             ListTile(
-              title: const Text('Feriados 2024'),
+              title: const Text(
+                'Feriados 2024',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20, // Aumentar tamaño del texto
+                ),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -196,7 +213,13 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              title: const Text('Cuánto falta para el siguiente feriado?'),
+              title: const Text(
+                'Cuánto falta para el siguiente feriado?',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20, // Aumentar tamaño del texto
+                ),
+              ),
               onTap: _showDaysUntilNextHoliday,
             ),
           ],
@@ -250,12 +273,22 @@ class _HomeState extends State<Home> {
                   elevation: 4,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      holidayName,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          holidayInfo['nombre'] ?? 'No Disponible',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Tipo: ${holidayInfo['tipo'] ?? 'No Disponible'}',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
                     ),
                   ),
                 ),
